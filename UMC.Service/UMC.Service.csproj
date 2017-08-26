@@ -44,7 +44,9 @@
     <Compile Include="ContactDetailService.cs" />
     <Compile Include="ErrorService.cs" />
     <Compile Include="FeedbackService.cs" />
+    <Compile Include="FooterService.cs" />
     <Compile Include="MenuGroupService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="PageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

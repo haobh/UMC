@@ -37,7 +37,8 @@ namespace UMC.Service
         }
         public async Task Update(MenuGroup menuGroup)
         {
-            await Task.FromResult(_menuGroupRepository.Update(menuGroup));
+            _menuGroupRepository.Update(menuGroup);
+            await Task.FromResult<object>(null);
         }
         public async Task<MenuGroup> GetById(int id)
         {

@@ -13,6 +13,7 @@ namespace TeduShop.Web.Mappings
             {
                 cfg.CreateMap<MenuGroup, MenuGroupViewModel>();
                 cfg.CreateMap<Menu,MenuViewModel>();
+                cfg.CreateMap<Footer, FooterViewModel>();
             });
         }
     }
