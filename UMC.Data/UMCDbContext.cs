@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +9,7 @@ using UMC.Model.Models;
 
 namespace UMC.Data
 {
-    public class UMCDbContext : DbContext
+    public class UMCDbContext : IdentityDbContext<ApplicationUser>
     {
         public UMCDbContext() : base("UMC")
         {
@@ -23,9 +24,14 @@ namespace UMC.Data
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Error> Errors { set; get; }
 
+        public static UMCDbContext Create()
+        {
+            return new UMCDbContext();
+        }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
