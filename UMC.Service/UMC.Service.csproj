@@ -40,7 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonService.cs" />
+    <Compile Include="ContactDetailService.cs" />
+    <Compile Include="ErrorService.cs" />
+    <Compile Include="FeedbackService.cs" />
+    <Compile Include="MenuGroupService.cs" />
+    <Compile Include="PageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UMC.Common\UMC.Common.csproj">
+      <Project>{379A62EC-9785-40EA-82A0-04F93DB77D7F}</Project>
+      <Name>UMC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UMC.Data\UMC.Data.csproj">
+      <Project>{12e26f09-ec02-4e74-935f-6993bf165290}</Project>
+      <Name>UMC.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UMC.Model\UMC.Model.csproj">
+      <Project>{6E1C6C41-FEC6-4AFC-B2FC-F46928C2E7B4}</Project>
+      <Name>UMC.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
