@@ -2,7 +2,7 @@
 using UMC.Model.Models;
 using UMC.Web.Models;
 
-namespace TeduShop.Web.Infrastructure.Extensions
+namespace UMC.Web.Infrastructure.Extensions
 {
     public static class EntityExtensions
     {

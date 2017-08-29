@@ -3,6 +3,8 @@
 (function () {
     angular.module('umc',
         ['umc.menugroup',
+         'umc.menu',
+         'umc.footer',
          'umc.common'])
         .config(config);
 

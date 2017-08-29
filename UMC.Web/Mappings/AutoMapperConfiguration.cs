@@ -3,7 +3,7 @@ using Microsoft.Owin.BuilderProperties;
 using UMC.Model.Models;
 using UMC.Web.Models;
 
-namespace TeduShop.Web.Mappings
+namespace UMC.Web.Mappings
 {
     public class AutoMapperConfiguration
     {

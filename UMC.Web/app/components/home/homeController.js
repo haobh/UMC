@@ -4,4 +4,4 @@
     function homeController() {
 
     }
-})(angular.module('umc'));
+})(angular.module('umc'));//cho nay goi app.js

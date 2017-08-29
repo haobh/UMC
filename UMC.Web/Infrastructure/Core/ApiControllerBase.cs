@@ -11,7 +11,7 @@ using System.Web.Http;
 using UMC.Model.Models;
 using UMC.Service;
 
-namespace TeduShop.Web.Infrastructure.Core
+namespace UMC.Web.Infrastructure.Core
 {
     public class ApiControllerBase : ApiController
     {

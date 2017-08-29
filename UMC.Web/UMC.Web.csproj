@@ -230,6 +230,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Infrastructure\Extensions\EntityExtensions.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Models\FooterViewModel.cs" />
@@ -239,11 +240,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\footer\footer.module.js" />
+    <Content Include="app\components\footer\footerListController.js" />
+    <Content Include="app\components\footer\footerListView.html" />
     <Content Include="app\components\home\homeController.js" />
     <Content Include="app\components\home\homeView.html" />
     <Content Include="app\components\menugroup\menuGroup.module.js" />
     <Content Include="app\components\menugroup\menuGroupListController.js" />
     <Content Include="app\components\menugroup\menuGroupListView.html" />
+    <Content Include="app\components\menu\menu.module.js" />
+    <Content Include="app\components\menu\menuListController.js" />
+    <Content Include="app\components\menu\menuListView.html" />
+    <Content Include="app\shared\directives\pagerDirective.html" />
+    <Content Include="app\shared\directives\pagerDirective.js" />
     <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\umc.common.js" />
     <Content Include="app\shared\services\apiService.js" />

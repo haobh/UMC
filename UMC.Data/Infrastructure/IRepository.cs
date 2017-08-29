@@ -28,6 +28,12 @@ namespace UMC.Data.Infrastructure
 
         Task<IEnumerable<T>> GetAll(string[] includes = null);
 
+        /// <summary>
+        /// Hàm GetMulti này dùng để tìm kiếm dựa vào Keyword
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
         Task<IEnumerable<T>> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null);
 
         IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50, string[] includes = null);

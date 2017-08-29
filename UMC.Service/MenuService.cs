@@ -12,6 +12,7 @@ namespace UMC.Service
     public interface IMenuService
     {
         Task<IEnumerable<Menu>> GetAll();
+        Task<IEnumerable<Menu>> GetAll(string keyword);
         Task<Menu> Add(Menu menu);
         Task Update(Menu menu);
         Task<Menu> GetById(int id);
@@ -51,6 +52,14 @@ namespace UMC.Service
         public async Task SaveAsync()
         {
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<IEnumerable<Menu>> GetAll(string keyword)
+        {
+            if (!string.IsNullOrEmpty(keyword))
+                return await _menuRepository.GetMulti(x => x.Name.Contains(keyword) || x.Target.Contains(keyword));
+            else
+                return await _menuRepository.GetAll();
         }
     }
 }
