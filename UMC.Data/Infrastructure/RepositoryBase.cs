@@ -39,10 +39,11 @@ namespace UMC.Data.Infrastructure
             return dbSet.Add(entity);
         }
 
-        public virtual void Update(T entity)
+        public virtual T Update(T entity)
         {
-            dbSet.Attach(entity);
+            var id = dbSet.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
+            return id;
         }
 
         public virtual T Delete(T entity)

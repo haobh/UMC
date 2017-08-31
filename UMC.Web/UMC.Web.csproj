@@ -251,6 +251,8 @@
     <Content Include="app\components\menu\menu.module.js" />
     <Content Include="app\components\menu\menuAddController.js" />
     <Content Include="app\components\menu\menuAddView.html" />
+    <Content Include="app\components\menu\menuEditController.js" />
+    <Content Include="app\components\menu\menuEditView.html" />
     <Content Include="app\components\menu\menuListController.js" />
     <Content Include="app\components\menu\menuListView.html" />
     <Content Include="app\shared\directives\pagerDirective.html" />

@@ -3,6 +3,7 @@
     //tiem 2 bien vao Controller
     menuAddController.$inject = ['$scope', 'apiService', 'notificationService', '$state'];
     function menuAddController($scope, apiService, notificationService, $state) {
+        //Dùng để nhận parameter từ View lên và gán vào ViewModel
         $scope.menu = {
             //Name: 'Danh mục 1', //Mặc định những thuộc tính bên View sẽ set mặc định   
             Status: true      //Mặc định những thuộc tính bên View sẽ set mặc định
@@ -19,7 +20,7 @@
                     notificationService.displayError('Thêm mới không thành công.');
                 });
         }
-
+        //Dùng để hiển thị GrouID, để xóa /admin đi
         function loadMenuGroupID() {
             apiService.get('/api/menu/getmenugroupid', null, function (result) {
                 $scope.menuGroupID = result.data;

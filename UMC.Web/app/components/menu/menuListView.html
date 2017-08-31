@@ -34,7 +34,7 @@
                 </div>
                 <!--thêm mới -->
                 <div class="col-md-6">
-                    <!--add_menu là state trong mên.module.js -->
+                    <!--add_menu là state trong menu.module.js -->
                     <button class="btn btn-success" ui-sref="add_menu">Thêm mới</button>
                 </div>
             </div>
@@ -64,7 +64,8 @@
                                 </span>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></button>
+                                <!--edit_menu là state trong menu.module.js -->
+                                <button class="btn btn-sm btn-primary" ui-sref="edit_menu({id:item.ID})"><i class="fa fa-pencil"></i></button>
                                 <button class="btn  btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
