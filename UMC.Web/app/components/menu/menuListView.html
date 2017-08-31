@@ -32,6 +32,11 @@
                         </span>
                     </div><!-- /input-group -->
                 </div>
+                <!--thêm mới -->
+                <div class="col-md-6">
+                    <!--add_menu là state trong mên.module.js -->
+                    <button class="btn btn-success" ui-sref="add_menu">Thêm mới</button>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -65,7 +70,7 @@
                         </tr>
                         <tfoot>
                             <tr>
-                                <td colspan="8">Tổng số bản ghi: {{totalCount}}</td>
+                                <td colspan="8"><span class="pull-right">Trang: {{page+1}} - Tổng số bản ghi: {{totalCount}}</span></td>
                             </tr>
                         </tfoot>
                     </table>

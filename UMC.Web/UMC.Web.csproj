@@ -249,6 +249,8 @@
     <Content Include="app\components\menugroup\menuGroupListController.js" />
     <Content Include="app\components\menugroup\menuGroupListView.html" />
     <Content Include="app\components\menu\menu.module.js" />
+    <Content Include="app\components\menu\menuAddController.js" />
+    <Content Include="app\components\menu\menuAddView.html" />
     <Content Include="app\components\menu\menuListController.js" />
     <Content Include="app\components\menu\menuListView.html" />
     <Content Include="app\shared\directives\pagerDirective.html" />
@@ -256,6 +258,7 @@
     <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\umc.common.js" />
     <Content Include="app\shared\services\apiService.js" />
+    <Content Include="app\shared\services\notificationService.js" />
     <Content Include="Assets\admin\css\AdminLTE.css" />
     <Content Include="Assets\admin\css\AdminLTE.min.css" />
     <Content Include="Assets\admin\css\skins\skin-black-light.css" />
@@ -493,6 +496,10 @@
     <Content Include="Assets\admin\libs\slimScroll\examples\style.css" />
     <Content Include="Assets\admin\libs\slimScroll\jquery.slimscroll.js" />
     <Content Include="Assets\admin\libs\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.css" />
+    <Content Include="Assets\admin\libs\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -665,6 +672,13 @@
     <Content Include="Assets\admin\libs\slimScroll\bower.json" />
     <Content Include="Assets\admin\libs\slimScroll\package.json" />
     <Content Include="Assets\admin\libs\slimScroll\README.md" />
+    <Content Include="Assets\admin\libs\toastr\.bower.json" />
+    <Content Include="Assets\admin\libs\toastr\bower.json" />
+    <Content Include="Assets\admin\libs\toastr\LICENSE" />
+    <Content Include="Assets\admin\libs\toastr\README.md" />
+    <Content Include="Assets\admin\libs\toastr\toastr.js.map" />
+    <Content Include="Assets\admin\libs\toastr\toastr.less" />
+    <Content Include="Assets\admin\libs\toastr\toastr.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>

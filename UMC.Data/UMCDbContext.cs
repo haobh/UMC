@@ -30,6 +30,8 @@ namespace UMC.Data
         }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
+            Database.SetInitializer<UMCDbContext>(null);//Error UMCDBContext Changed...
+
             builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
             builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }

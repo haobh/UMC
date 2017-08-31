@@ -18,20 +18,49 @@ namespace UMC.Web.Api
     public class MenuController : ApiControllerBase
     {
         IMenuService _menuService;
-        public MenuController(IErrorService errorService, IMenuService menuService) :
+        IMenuGroupService _menuGroupService;
+        public MenuController(IErrorService errorService, IMenuService menuService, IMenuGroupService menuGroupService) :
             base(errorService)
         {
             this._menuService = menuService;
+            this._menuGroupService = menuGroupService;
+        }
+        /// <summary>
+        /// Hàm này dùng để Get tất cả tên MenuId, bên bảng MenuGroup, API chỉ quan tâm đến Route, nó ko quan tâm đến tên hàm
+        /// </summary>
+        /// <param name="request"> nhận request từ Client</param>
+        /// <returns>Trả ra Response về cho Client</returns>
+        [Route("getmenugroupid")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage request)
+        {
+            var model = await _menuGroupService.GetAll();
+            var responseData = Mapper.Map<IEnumerable<MenuGroup>, IEnumerable<MenuGroupViewModel>>(model);
+            return await CreateHttpResponse(request, () =>
+            {
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
         }
 
+        /// <summary>
+        /// Hàm này dùng để GetList toàn bộ, có phân trang
+        /// http://localhost:59445/api/menu/getall?keyword=a&page=1&pagesize=1
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="keyword"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [Route("getall")]
+        [HttpGet]
         public async Task<HttpResponseMessage> GetAll(HttpRequestMessage request, string keyword,int page, int pageSize = 20)
         {
             int totalRow = 0;
             //Đay chinh la ham tai boi(OverLoading), cung ten nhung khac tham so truyen vao
             var model = await _menuService.GetAll(keyword);
             totalRow = model.Count();
-            var query = model.OrderByDescending(x => x.Name).Skip(page * pageSize).Take(pageSize);
+            var query = model.OrderBy(x => x.Name).Skip(page * pageSize).Take(pageSize);
             var responseData = Mapper.Map<IEnumerable<Menu>, IEnumerable<MenuViewModel>>(query);
             var paginationSet = new PaginationSet<MenuViewModel>()
             {
@@ -47,13 +76,15 @@ namespace UMC.Web.Api
             });
         }
 
-        [Route("add")]
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<HttpResponseMessage> Post(HttpRequestMessage request, MenuViewModel menuVm)
         {
             return await CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }

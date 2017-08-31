@@ -15,7 +15,7 @@ namespace UMC.Model.Models
         public string Name { set; get; }
 
         [Required]
-        [MaxLength(256)]
+        [MaxLength(250)]
         public string URL { set; get; }
 
         public int? DisplayOrder { set; get; }

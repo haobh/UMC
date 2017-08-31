@@ -32,6 +32,14 @@ namespace UMC.Service
         {
             return await _menuRepository.GetAll();
         }
+        //Nếu có keyword thì vào hàm tìm kiếm, không thì nó vào hàm trên
+        public async Task<IEnumerable<Menu>> GetAll(string keyword)
+        {
+            if (!string.IsNullOrEmpty(keyword))
+                return await _menuRepository.GetMulti(x => x.Name.Contains(keyword) || x.Target.Contains(keyword));
+            else
+                return await _menuRepository.GetAll();
+        }
         public async Task<Menu> Add(Menu menu)
         {
             return await Task.FromResult(_menuRepository.Add(menu));
@@ -52,14 +60,6 @@ namespace UMC.Service
         public async Task SaveAsync()
         {
             await _unitOfWork.CommitAsync();
-        }
-
-        public async Task<IEnumerable<Menu>> GetAll(string keyword)
-        {
-            if (!string.IsNullOrEmpty(keyword))
-                return await _menuRepository.GetMulti(x => x.Name.Contains(keyword) || x.Target.Contains(keyword));
-            else
-                return await _menuRepository.GetAll();
-        }
+        }      
     }
 }

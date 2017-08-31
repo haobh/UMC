@@ -9,6 +9,10 @@
             url: "/menu",
             templateUrl: "/app/components/menu/menuListView.html",
             controller: "menuListController"
+        }).state('add_menu', {
+            url: "/add_menu",
+            templateUrl: "/app/components/menu/menuAddView.html",
+            controller: "menuAddController"
         });
     }
 })();
