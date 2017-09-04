@@ -11,7 +11,7 @@ namespace UMC.Data.Infrastructure
         T Add(T entity);
 
         // Marks an entity as modified
-        T Update(T entity);
+        bool Update(T entity);
 
         // Marks an entity to be removed
         T Delete(T entity);

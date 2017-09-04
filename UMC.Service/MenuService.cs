@@ -14,7 +14,7 @@ namespace UMC.Service
         Task<IEnumerable<Menu>> GetAll();
         Task<IEnumerable<Menu>> GetAll(string keyword);
         Task<Menu> Add(Menu menu);
-        Task Update(Menu menu);
+        Task<bool> Update(Menu menu);
         Task<Menu> GetById(int id);
         Task<Menu> Delete(int id);
         Task SaveAsync();
@@ -44,9 +44,9 @@ namespace UMC.Service
         {
             return await Task.FromResult(_menuRepository.Add(menu));
         }
-        public async Task Update(Menu menu)
+        public async Task<bool> Update(Menu menu)
         {
-            await Task.FromResult(_menuRepository.Update(menu));
+            return await Task.FromResult(_menuRepository.Update(menu));
             //await Task.FromResult<object>(null);
         }
         public async Task<Menu> GetById(int id)

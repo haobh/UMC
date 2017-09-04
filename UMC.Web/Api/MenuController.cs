@@ -149,7 +149,6 @@ namespace UMC.Web.Api
             var dbMenu = await _menuService.GetById(menuVm.ID);
             //Mapping vào Menu
             dbMenu.UpdateMenu(menuVm);
-
             return await CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;

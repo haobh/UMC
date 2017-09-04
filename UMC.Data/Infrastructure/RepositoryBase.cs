@@ -39,11 +39,15 @@ namespace UMC.Data.Infrastructure
             return dbSet.Add(entity);
         }
 
-        public virtual T Update(T entity)
+        public virtual bool Update(T entity)
         {
-            var id = dbSet.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
-            return id;
+            var entry = dataContext.Entry(entity); //Lay thong tin ve su thay doi khi update
+            var id = dbSet.Attach(entity);  //Attach vao DB
+            entry.State = EntityState.Modified;   //Luu lai thong tin thay soi    
+            if (entity.Equals(id) == true)
+                return true;
+            else
+                return false;
         }
 
         public virtual T Delete(T entity)
