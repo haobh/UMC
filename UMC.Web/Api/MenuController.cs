@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using UMC.Model.Models;
@@ -92,12 +93,19 @@ namespace UMC.Web.Api
         /// <param name="request">Chứa phương thức Post</param>
         /// <param name="menuVm">Các Parameter dưới View gửi lên sẽ gán vào đây</param>
         /// Sau đó nó sẽ được Mapping vào newMenu thông qua AutoMapper hàm UpdateMenu
+        /// Vì sử dụng hàm async nên khi gọi phương thức Insert sẽ gọi bên ngoài
         /// <returns></returns>
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<HttpResponseMessage> Post(HttpRequestMessage request, MenuViewModel menuVm)
         {
+            //Khoi tao
+            Menu newMenu = new Menu();
+            newMenu.UpdateMenu(menuVm); //Gan ViewModel sang Model de Insert DB, this
+            //Gọi hàm Insert
+            var menu = await _menuService.Add(newMenu);
+            await _menuService.SaveAsync();
             return await CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
@@ -106,13 +114,7 @@ namespace UMC.Web.Api
                     request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
-                {
-                    //Khoi tao
-                    Menu newMenu = new Menu();
-                    newMenu.UpdateMenu(menuVm); //Gan ViewModel sang Model de Insert DB, this
-                    //Goi Insert
-                    var menu = _menuService.Add(newMenu);
-                    _menuService.SaveAsync();
+                {                   
                     response = request.CreateResponse(HttpStatusCode.Created, menu);
                 }
                 return response;
@@ -149,38 +151,45 @@ namespace UMC.Web.Api
             var dbMenu = await _menuService.GetById(menuVm.ID);
             //Mapping vào Menu
             dbMenu.UpdateMenu(menuVm);
-            return await CreateHttpResponse(request, () =>
+            await _menuService.Update(dbMenu);
+            await _menuService.SaveAsync();
+            return await CreateHttpResponse(request,() =>
             {
                 HttpResponseMessage response = null;
                 if (!ModelState.IsValid)
-                {
+                {                    
                     response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
-                {
-                    _menuService.Update(dbMenu);
-                    _menuService.SaveAsync();
-
+                {                   
                     var responseData = Mapper.Map<Menu, MenuViewModel>(dbMenu);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
                 return response;
             });
         }
-
+        /// <summary>
+        /// Xóa 1 bản ghi
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("delete")]
+        [HttpDelete]
+        [AllowAnonymous]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, int id)
         {
+            await _menuService.Delete(id);
+            await _menuService.SaveAsync();
             return await CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
-                {
-                    _menuService.Delete(id);
-                    _menuService.SaveAsync();
+                {                   
                     response = request.CreateResponse(HttpStatusCode.OK);
                 }
                 return response;

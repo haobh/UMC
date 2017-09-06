@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('menuListController', menuListController);
     //tiem 2 bien vao Controller
-    menuListController.$inject = ['$scope', 'apiService', 'notificationService'];
+    menuListController.$inject = ['$scope', 'apiService', 'notificationService', '$ngBootbox'];
 
-    function menuListController($scope, apiService, notificationService) {
+    function menuListController($scope, apiService, notificationService, $ngBootbox) {
         $scope.menu = [];
         //Doan nay dung de truyen bien scope giong nhu ViewBag de hien thi tu Controller -> View
         $scope.page = 0;
@@ -48,5 +48,23 @@
         }
 
         $scope.getMenu();
+
+        //Xóa 1 bản ghi,  dùng $ngBootbox để Confirm xóa bản ghi
+        $scope.deleteMenu = deleteMenu; //ng-Click
+        function deleteMenu(id) {
+            $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
+                var config = {
+                    params: {
+                        id: id
+                    }
+                }
+                apiService.del('/api/menu/delete', config, function () {
+                    notificationService.displaySuccess('Xóa thành công');
+                    search();
+                }, function () {
+                    notificationService.displayError('Xóa không thành công');
+                })
+            });
+        }
     }
 })(angular.module('umc.menu')); //goi module menu.module.js

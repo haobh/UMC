@@ -39,15 +39,10 @@ namespace UMC.Data.Infrastructure
             return dbSet.Add(entity);
         }
 
-        public virtual bool Update(T entity)
+        public virtual void Update(T entity)
         {
-            var entry = dataContext.Entry(entity); //Lay thong tin ve su thay doi khi update
-            var id = dbSet.Attach(entity);  //Attach vao DB
-            entry.State = EntityState.Modified;   //Luu lai thong tin thay soi    
-            if (entity.Equals(id) == true)
-                return true;
-            else
-                return false;
+            dbSet.Attach(entity);
+            dataContext.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual T Delete(T entity)
@@ -85,7 +80,7 @@ namespace UMC.Data.Infrastructure
         public async Task<IEnumerable<T>> GetAll(string[] includes = null)
         {
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-            
+
             if (includes != null && includes.Count() > 0)
             {
                 var query = dataContext.Set<T>().Include(includes.First());
@@ -93,7 +88,7 @@ namespace UMC.Data.Infrastructure
                     query = query.Include(include);
                 return await Task.FromResult(query.AsQueryable());
             }
-           // await Task.Factory.StartNew(() => Thread.Sleep(10));
+            // await Task.Factory.StartNew(() => Thread.Sleep(10));
             //var getAll = await Task.FromResult(dataContext.Set<T>().AsQueryable());
             return await Task.FromResult(dataContext.Set<T>().AsQueryable());
         }
