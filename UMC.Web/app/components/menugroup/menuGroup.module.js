@@ -6,10 +6,12 @@
 
     function config($stateProvider, $urlRouterProvider) {
 
-        $stateProvider.state('menugroup', {
-            url: "/menugroup",
-            templateUrl: "/app/components/menugroup/menuGroupListView.html",
-            controller: "menuGroupListController"
-        });
+        $stateProvider
+            .state('menugroup', {
+                url: "/menugroup",
+                parent: 'base',
+                templateUrl: "/app/components/menugroup/menuGroupListView.html",
+                controller: "menuGroupListController"
+            });
     }
 })();

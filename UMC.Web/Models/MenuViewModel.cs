@@ -10,13 +10,13 @@ namespace UMC.Web.Models
     public class MenuViewModel
     {
         public int ID { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập tên menu")]
         public string Name { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập tên URL")]
         public string URL { set; get; }
 
         public int? DisplayOrder { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Yêu cầu nhập nhóm GroupMenu")]
         public int GroupID { set; get; }
 
         [ForeignKey("GroupID")]
@@ -24,6 +24,7 @@ namespace UMC.Web.Models
 
         public string Target { set; get; }
 
+        [Required(ErrorMessage = "Yêu cầu nhập trạng thái")]
         public bool Status { set; get; }
     }
 }

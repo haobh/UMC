@@ -15,6 +15,7 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/footer")]
+    //[Authorize]
     public class FooterController : ApiControllerBase
     {
         IFooterService _footerService;

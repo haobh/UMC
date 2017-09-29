@@ -1,0 +1,47 @@
+﻿(function (app) {
+    'use strict';
+    app.controller('applicationUserEditController', applicationUserEditController);
+    applicationUserEditController.$inject = ['$scope', 'apiService', 'notificationService', '$location', '$stateParams'];
+    function applicationUserEditController($scope, apiService, notificationService, $location, $stateParams) {
+        $scope.account = {}
+
+        function loadDetail() {
+            apiService.get('/api/applicationUser/detail/' + $stateParams.id, null,
+            function (result) {
+                $scope.account = result.data;
+                console.log($scope.account);
+            },
+            function (result) {
+                notificationService.displayError(result.data);
+            });
+        }
+
+        $scope.updateAccount = updateAccount;
+        function updateAccount() {
+            console.log($scope.account);
+            apiService.put('/api/applicationUser/update', $scope.account, addSuccessed, addFailed);
+        }
+
+        function addSuccessed() {
+            notificationService.displaySuccess($scope.account.FullName + ' đã được cập nhật thành công.');
+
+            $location.url('application_users');
+        }
+        function addFailed(response) {
+            notificationService.displayError(response.data.Message);
+            notificationService.displayErrorValidation(response);
+        }
+        //Khi click vào User thì nó sẽ load ra Group của User
+        //function loadGroups() {
+        //    apiService.get('/api/applicationGroup/getlistall',
+        //        null,
+        //        function (response) {
+        //            $scope.groups = response.data;
+        //        }, function (response) {
+        //            notificationService.displayError('Không tải được danh sách nhóm.');
+        //        });
+        //}
+        //loadGroups();
+        loadDetail();
+    }
+})(angular.module('umc.application_users'));

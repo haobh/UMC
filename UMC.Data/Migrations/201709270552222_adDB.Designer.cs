@@ -7,13 +7,13 @@ namespace UMC.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class IntergrateAspnetIdentity : IMigrationMetadata
+    public sealed partial class adDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IntergrateAspnetIdentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(adDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708260854028_Intergrate-AspnetIdentity"; }
+            get { return "201709270552222_adDB"; }
         }
         
         string IMigrationMetadata.Source

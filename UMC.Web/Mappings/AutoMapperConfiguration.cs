@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Owin.BuilderProperties;
 using UMC.Model.Models;
 using UMC.Web.Models;
 
@@ -14,6 +13,7 @@ namespace UMC.Web.Mappings
                 cfg.CreateMap<MenuGroup, MenuGroupViewModel>();
                 cfg.CreateMap<Menu,MenuViewModel>();
                 cfg.CreateMap<Footer, FooterViewModel>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
             });
         }
     }

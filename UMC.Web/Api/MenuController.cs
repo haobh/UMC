@@ -16,6 +16,7 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/menu")]
+    //[Authorize]
     public class MenuController : ApiControllerBase
     {
         #region Initialize

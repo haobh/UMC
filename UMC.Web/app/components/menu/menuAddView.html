@@ -23,13 +23,15 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Tên Menu</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" ng-model="menu.Name">
+                        <input type="text" class="form-control" name="name" required ng-model="menu.Name">
+                        <span ng-show="frmAddMenu.name.$invalid" class="has-error">Phải nhập tên menu</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">URL</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="url" ng-model="menu.URL">
+                        <input type="text" class="form-control" name="url" required ng-model="menu.URL">
+                        <span ng-show="frmAddMenu.url.$invalid" class="has-error">Phải nhập URL</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,11 +43,12 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Danh mục cha</label>
                     <div class="col-sm-10">
-                        <select name="groupId" class="form-control" ng-model="menu.GroupID" 
+                        <select name="groupId" required class="form-control" ng-model="menu.GroupID" 
                                 ng-options="option.ID as option.Name for option in menuGroupID">
                             <option value="">Danh mục gốc</option>
                         </select>
                         <input type="hidden" name="groupId" ng-model="menu.groupId"/>
+                        <span ng-show="frmAddMenu.groupId.$invalid" class="has-error">Phải chọn MenuGroup</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -58,7 +61,8 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="status" ng-model="menu.Status" ng-checked="menu.Status"> Kích hoạt
+                                <input type="checkbox" required name="status" ng-model="menu.Status" ng-checked="menu.Status"> Kích hoạt
+                                <span ng-show="frmAddMenu.status.$invalid" class="has-error">Phải chọn Status</span>
                             </label>
                         </div>
                     </div>
@@ -66,7 +70,7 @@
             </div><!-- /.box-body -->
             <div class="box-footer">
                 <button ui-sref="menu" class="btn btn-default">Hủy</button>
-                <button type="submit" class="btn btn-info pull-right">Lưu lại</button>
+                <button type="submit" ng-disabled="frmAddMenu.$invalid" class="btn btn-info pull-right">Lưu lại</button>
             </div><!-- /.box-footer -->
         </form>
     </div><!-- /.box -->
