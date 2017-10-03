@@ -32,16 +32,16 @@
             notificationService.displayErrorValidation(response);
         }
         //Khi click vào User thì nó sẽ load ra Group của User
-        //function loadGroups() {
-        //    apiService.get('/api/applicationGroup/getlistall',
-        //        null,
-        //        function (response) {
-        //            $scope.groups = response.data;
-        //        }, function (response) {
-        //            notificationService.displayError('Không tải được danh sách nhóm.');
-        //        });
-        //}
-        //loadGroups();
+        function loadGroups() {
+            apiService.get('/api/applicationGroup/getlistall',
+                null,
+                function (response) {
+                    $scope.groups = response.data;
+                }, function (response) {
+                    notificationService.displayError('Không tải được danh sách nhóm.');
+                });
+        }
+        loadGroups();
         loadDetail();
     }
 })(angular.module('umc.application_users'));

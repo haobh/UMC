@@ -20,11 +20,17 @@ namespace UMC.Web.Api
     public class ApplicationUserController : ApiControllerBase
     {
         private readonly ApplicationUserManager _userManager;
-        //private readonly IApplicationGroupService _appGroupService;
-        //private readonly IApplicationRoleService _appRoleService;
-        public ApplicationUserController(ApplicationUserManager userManager,
-            IErrorService errorService) : base(errorService)
+        private readonly IApplicationGroupService _appGroupService; //Load Group
+        private readonly IApplicationRoleService _appRoleService; //Load Role
+        public ApplicationUserController(
+            ApplicationUserManager userManager,
+            IApplicationGroupService appGroupService,
+            IApplicationRoleService appRoleService,
+            IErrorService errorService) 
+            : base(errorService)
         {
+            _appRoleService = appRoleService;
+            _appGroupService = appGroupService;
             _userManager = userManager;
         }
         [Route("getlistpaging")]
@@ -35,9 +41,8 @@ namespace UMC.Web.Api
             return await CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                //int totalRow = 0;
-                var model = _userManager.Users; //Lấy toàn bộ danh sách trong bảng ApplicationUser
-                int totalRow = model.Count();
+                int totalRow = 0;
+                var model = _userManager.Users; //Lấy toàn bộ danh sách trong bảng ApplicationUser              
                 IEnumerable<ApplicationUserViewModel> modelVm = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserViewModel>>(model);
                 PaginationSet<ApplicationUserViewModel> pagedSet = new PaginationSet<ApplicationUserViewModel>()
                 {
@@ -66,24 +71,25 @@ namespace UMC.Web.Api
                     var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
                     if (result.Succeeded)
                     {
-                        //var listAppUserGroup = new List<ApplicationUserGroup>();
-                        //foreach (var group in applicationUserViewModel.Groups)
-                        //{
-                        //    listAppUserGroup.Add(new ApplicationUserGroup()
-                        //    {
-                        //        GroupId = group.ID,
-                        //        UserId = newAppUser.Id
-                        //    });
-                        //    //add role to user
-                        //    var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
-                        //    foreach (var role in listRole)
-                        //    {
-                        //        await _userManager.RemoveFromRoleAsync(newAppUser.Id, role.Name);
-                        //        await _userManager.AddToRoleAsync(newAppUser.Id, role.Name);
-                        //    }
-                        //}
-                        //_appGroupService.AddUserToGroups(listAppUserGroup, newAppUser.Id);
-                        //_appGroupService.Save();
+                        var listAppUserGroup = new List<ApplicationUserGroup>();
+                        foreach (var group in applicationUserViewModel.Groups)
+                        {
+                            //add user to group
+                            listAppUserGroup.Add(new ApplicationUserGroup()
+                            {
+                                GroupId = group.ID,
+                                UserId = newAppUser.Id
+                            });
+                            //add role to user
+                            var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
+                            foreach (var role in listRole)
+                            {
+                                await _userManager.RemoveFromRoleAsync(newAppUser.Id, role.Name);
+                                await _userManager.AddToRoleAsync(newAppUser.Id, role.Name);
+                            }
+                        }
+                        await _appGroupService.AddUserToGroups(listAppUserGroup, newAppUser.Id);
+                        await _appGroupService.Save();
 
                         return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
 
@@ -106,11 +112,17 @@ namespace UMC.Web.Api
             }
         }
 
-        //Click Edit show ra deail của bản ghi
+        /// <summary>
+        /// Click Edit show ra detail của bản ghi
+        /// GetListGroupByUserId: Lấy ra Group mà User liên kết
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("detail/{id}")]
         [HttpGet]
         //[Authorize(Roles = "ViewUser")]
-        public HttpResponseMessage Details(HttpRequestMessage request, string id)
+        public async Task<HttpResponseMessage> Details(HttpRequestMessage request, string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -124,8 +136,8 @@ namespace UMC.Web.Api
             else
             {
                 var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user.Result);
-                //var listGroup = _appGroupService.GetListGroupByUserId(applicationUserViewModel.Id);
-                //applicationUserViewModel.Groups = Mapper.Map<IEnumerable<ApplicationGroup>, IEnumerable<ApplicationGroupViewModel>>(listGroup);
+                var listGroup = await _appGroupService.GetListGroupByUserId(applicationUserViewModel.Id);
+                applicationUserViewModel.Groups = Mapper.Map<IEnumerable<ApplicationGroup>, IEnumerable<ApplicationGroupViewModel>>(listGroup);
                 return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
             }
         }
@@ -142,30 +154,30 @@ namespace UMC.Web.Api
                 {
                     appUser.UpdateUser(applicationUserViewModel);
                     var result = await _userManager.UpdateAsync(appUser);
-                    //if (result.Succeeded)
-                    //{
-                    //    var listAppUserGroup = new List<ApplicationUserGroup>();
-                    //    foreach (var group in applicationUserViewModel.Groups)
-                    //    {
-                    //        listAppUserGroup.Add(new ApplicationUserGroup()
-                    //        {
-                    //            GroupId = group.ID,
-                    //            UserId = applicationUserViewModel.Id
-                    //        });
-                    //        //add role to user
-                    //        var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
-                    //        foreach (var role in listRole)
-                    //        {
-                    //            await _userManager.RemoveFromRoleAsync(appUser.Id, role.Name);
-                    //            await _userManager.AddToRoleAsync(appUser.Id, role.Name);
-                    //        }
-                    //    }
-                    //    _appGroupService.AddUserToGroups(listAppUserGroup, applicationUserViewModel.Id);
-                    //    _appGroupService.Save();
-                    //    return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
+                    if (result.Succeeded)
+                    {
+                        var listAppUserGroup = new List<ApplicationUserGroup>();
+                        foreach (var group in applicationUserViewModel.Groups)
+                        {
+                            listAppUserGroup.Add(new ApplicationUserGroup()
+                            {
+                                GroupId = group.ID,
+                                UserId = applicationUserViewModel.Id
+                            });
+                            //add role to user
+                            var listRole = _appRoleService.GetListRoleByGroupId(group.ID);
+                            foreach (var role in listRole)
+                            {
+                                await _userManager.RemoveFromRoleAsync(appUser.Id, role.Name);
+                                await _userManager.AddToRoleAsync(appUser.Id, role.Name);
+                            }
+                        }
+                        await _appGroupService.AddUserToGroups(listAppUserGroup, applicationUserViewModel.Id);
+                        await _appGroupService.Save();
+                        return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
 
-                    //}
-                    //else
+                    }
+                    else
                         return request.CreateErrorResponse(HttpStatusCode.BadRequest, string.Join(",", result.Errors));
                 }
                 catch (NameDuplicatedException dex)

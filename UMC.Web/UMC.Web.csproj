@@ -216,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\ApplicationGroupController.cs" />
+    <Compile Include="Api\ApplicationRoleController.cs" />
     <Compile Include="Api\ApplicationUserController.cs" />
     <Compile Include="Api\FooterController.cs" />
     <Compile Include="Api\HomeController.cs" />
@@ -247,6 +249,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\components\application_groups\applicationGroupAddController.js" />
+    <Content Include="app\components\application_groups\applicationGroupAddView.html" />
+    <Content Include="app\components\application_groups\applicationGroupEditController.js" />
+    <Content Include="app\components\application_groups\applicationGroupEditView.html" />
+    <Content Include="app\components\application_groups\applicationGroupListController.js" />
+    <Content Include="app\components\application_groups\applicationGroupListView.html" />
+    <Content Include="app\components\application_groups\applicationGroups.module.js" />
+    <Content Include="app\components\application_roles\applicationRoleAddController.js" />
+    <Content Include="app\components\application_roles\applicationRoleAddView.html" />
+    <Content Include="app\components\application_roles\applicationRoleEditController.js" />
+    <Content Include="app\components\application_roles\applicationRoleEditView.html" />
+    <Content Include="app\components\application_roles\applicationRoleListController.js" />
+    <Content Include="app\components\application_roles\applicationRoleListView.html" />
+    <Content Include="app\components\application_roles\applicationRoles.module.js" />
     <Content Include="app\components\application_users\applicationUserAddController.js" />
     <Content Include="app\components\application_users\applicationUserAddView.html" />
     <Content Include="app\components\application_users\applicationUserEditController.js" />
@@ -406,6 +422,8 @@
     <Content Include="Assets\admin\libs\bootstrap\js\tooltip.js" />
     <Content Include="Assets\admin\libs\bootstrap\js\transition.js" />
     <Content Include="Assets\admin\libs\bootstrap\package.js" />
+    <Content Include="Assets\admin\libs\checklist-model\checklist-model.js" />
+    <Content Include="Assets\admin\libs\checklist-model\LICENSE.txt" />
     <Content Include="Assets\admin\libs\fastclick\lib\fastclick.js" />
     <Content Include="Assets\admin\libs\jquery\AUTHORS.txt" />
     <Content Include="Assets\admin\libs\jquery\dist\core.js" />
@@ -581,6 +599,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\admin\libs\checklist-model\test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -767,6 +786,10 @@
     <Content Include="Assets\admin\libs\angular-local-storage\LICENSE" />
     <Content Include="Assets\admin\libs\angular-local-storage\package.json" />
     <Content Include="Assets\admin\libs\angular-local-storage\README.md" />
+    <Content Include="Assets\admin\libs\checklist-model\.bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\bower.json" />
+    <Content Include="Assets\admin\libs\checklist-model\checklist-model.nuspec" />
+    <Content Include="Assets\admin\libs\checklist-model\readme.md" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>

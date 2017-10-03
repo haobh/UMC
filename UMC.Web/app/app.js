@@ -6,7 +6,9 @@
          'umc.menu',
          'umc.footer',
          'umc.common',
-         'umc.application_users'])
+         'umc.application_users',
+         'umc.application_groups',
+         'umc.application_roles'])
         .config(config)
         .config(configAuthentication);
 

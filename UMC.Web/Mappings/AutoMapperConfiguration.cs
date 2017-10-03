@@ -14,6 +14,8 @@ namespace UMC.Web.Mappings
                 cfg.CreateMap<Menu,MenuViewModel>();
                 cfg.CreateMap<Footer, FooterViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
+                cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
+                cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
             });
         }
     }

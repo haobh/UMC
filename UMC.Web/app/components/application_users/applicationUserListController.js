@@ -13,7 +13,7 @@
         $scope.search = search;
         $scope.clearSearch = clearSearch;
         $scope.deleteItem = deleteItem;
-
+        //Xóa 1 bản ghi
         function deleteItem(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa?')
                 .then(function () {
@@ -37,11 +37,10 @@
             var config = {
                 params: {
                     page: page,
-                    pageSize: 10,
+                    pageSize: 2,
                     filter: $scope.filterExpression
                 }
             }
-
             apiService.get('/api/applicationUser/getlistpaging', config, dataLoadCompleted, dataLoadFailed);
         }
 
@@ -55,8 +54,6 @@
             if ($scope.filterExpression && $scope.filterExpression.length) {
                 notificationService.displayInfo(result.data.Items.length + ' items found');
             }
-
-            //console.log($scope.data);
         }
         function dataLoadFailed(response) {
             notificationService.displayError(response.data);
