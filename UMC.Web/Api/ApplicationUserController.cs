@@ -17,6 +17,7 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/applicationUser")]
+    [Authorize]
     public class ApplicationUserController : ApiControllerBase
     {
         private readonly ApplicationUserManager _userManager;

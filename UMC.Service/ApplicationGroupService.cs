@@ -21,7 +21,7 @@ namespace UMC.Service
         Task<bool> AddUserToGroups(IEnumerable<ApplicationUserGroup> groups, string userId);
         Task<IEnumerable<ApplicationGroup>> GetListGroupByUserId(string userId);
 
-        //Task<IEnumerable<ApplicationUser>> GetListUserByGroupId(int groupId);
+        Task<IEnumerable<ApplicationUser>> GetListUserByGroupId(int groupId);
 
         Task Save();
     }
@@ -95,14 +95,16 @@ namespace UMC.Service
             return true;
         }
 
+        //Lấy danh sách Group dựa vào UserId
         public async Task<IEnumerable<ApplicationGroup>> GetListGroupByUserId(string userId)
         {
             return await Task.FromResult(_appGroupRepository.GetListGroupByUserId(userId));
         }
 
-        public IEnumerable<ApplicationUser> GetListUserByGroupId(int groupId)
+        //Lấy danh sách User dựa vào GroupId
+        public async Task<IEnumerable<ApplicationUser>> GetListUserByGroupId(int groupId)
         {
-            return _appGroupRepository.GetListUserByGroupId(groupId);
+            return await Task.FromResult(_appGroupRepository.GetListUserByGroupId(groupId));
         }
     }
 }

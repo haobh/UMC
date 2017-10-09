@@ -15,8 +15,8 @@ namespace UMC.Service
     }
     public class PageService : IPageService
     {
-        IPageRepository _pageRepository;
-        IUnitOfWork _unitOfWork;
+        private readonly IPageRepository _pageRepository;
+        private readonly IUnitOfWork _unitOfWork;
         public PageService(IPageRepository pageRepository, IUnitOfWork unitOfWork)
         {
             this._pageRepository = pageRepository;

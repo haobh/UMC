@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UMC.Data.Infrastructure;
 using UMC.Data.Repositories;
 using UMC.Model.Models;

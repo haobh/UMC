@@ -19,12 +19,12 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/applicationGroup")]
-    //[Authorize]
+    [Authorize]
     public class ApplicationGroupController : ApiControllerBase
     {
-        private IApplicationGroupService _appGroupService;
-        private IApplicationRoleService _appRoleService;
-        private ApplicationUserManager _userManager;
+        private readonly IApplicationGroupService _appGroupService;
+        private readonly IApplicationRoleService _appRoleService;
+        private readonly ApplicationUserManager _userManager;
 
         public ApplicationGroupController(IErrorService errorService,
             IApplicationRoleService appRoleService,
@@ -157,30 +157,30 @@ namespace UMC.Web.Api
                     await _appGroupService.Save();
 
                     //save group
-                    //var listRoleGroup = new List<ApplicationRoleGroup>();
-                    //foreach (var role in appGroupViewModel.Roles)
-                    //{
-                    //    listRoleGroup.Add(new ApplicationRoleGroup()
-                    //    {
-                    //        GroupId = appGroup.ID,
-                    //        RoleId = role.Id
-                    //    });
-                    //}
-                    //_appRoleService.AddRolesToGroup(listRoleGroup, appGroup.ID);
-                    //_appRoleService.Save();
+                    var listRoleGroup = new List<ApplicationRoleGroup>();
+                    foreach (var role in appGroupViewModel.Roles)
+                    {
+                        listRoleGroup.Add(new ApplicationRoleGroup()
+                        {
+                            GroupId = appGroup.ID,
+                            RoleId = role.Id
+                        });
+                    }
+                    _appRoleService.AddRolesToGroup(listRoleGroup, appGroup.ID);
+                    await _appRoleService.Save();
 
                     //add role to user
-                    //var listRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
-                    //var listUserInGroup = _appGroupService.GetListUserByGroupId(appGroup.ID);
-                    //foreach (var user in listUserInGroup)
-                    //{
-                    //    var listRoleName = listRole.Select(x => x.Name).ToArray();
-                    //    foreach (var roleName in listRoleName)
-                    //    {
-                    //        await _userManager.RemoveFromRoleAsync(user.Id, roleName);
-                    //        await _userManager.AddToRoleAsync(user.Id, roleName);
-                    //    }
-                    //}
+                    var listRole = _appRoleService.GetListRoleByGroupId(appGroup.ID);
+                    var listUserInGroup = await _appGroupService.GetListUserByGroupId(appGroup.ID);
+                    foreach (var user in listUserInGroup)
+                    {
+                        var listRoleName = listRole.Select(x => x.Name).ToArray();
+                        foreach (var roleName in listRoleName)
+                        {
+                            await _userManager.RemoveFromRoleAsync(user.Id, roleName);
+                            await _userManager.AddToRoleAsync(user.Id, roleName);
+                        }
+                    }
                     return request.CreateResponse(HttpStatusCode.OK, appGroupViewModel);
                 }
                 catch (NameDuplicatedException dex)

@@ -13,8 +13,8 @@ namespace UMC.Service
 
     public class FeedbackService : IFeedbackService
     {
-        private IFeedbackRepository _feedbackRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IFeedbackRepository _feedbackRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public FeedbackService(IFeedbackRepository feedbackRepository, IUnitOfWork unitOfWork)
         {

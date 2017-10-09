@@ -10,6 +10,7 @@
         }
         $scope.authentication = authData.authenticationData;
 
-        authenticationService.validateRequest();
+        //Chỗ này gọi đến phương thức validate TestMethod
+       // authenticationService.validateRequest();
     }
 })(angular.module('umc'));

@@ -17,7 +17,7 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/applicationRole")]
-    //[Authorize]
+    [Authorize]
     public class ApplicationRoleController : ApiControllerBase
     {
         private IApplicationRoleService _appRoleService;

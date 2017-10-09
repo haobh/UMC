@@ -9,7 +9,7 @@
             apiService.get('/api/applicationUser/detail/' + $stateParams.id, null,
             function (result) {
                 $scope.account = result.data;
-                console.log($scope.account);
+                //console.log($scope.account);
             },
             function (result) {
                 notificationService.displayError(result.data);
@@ -18,7 +18,7 @@
 
         $scope.updateAccount = updateAccount;
         function updateAccount() {
-            console.log($scope.account);
+            //console.log($scope.account);
             apiService.put('/api/applicationUser/update', $scope.account, addSuccessed, addFailed);
         }
 

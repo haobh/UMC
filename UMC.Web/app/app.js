@@ -10,7 +10,7 @@
          'umc.application_groups',
          'umc.application_roles'])
         .config(config)
-        .config(configAuthentication);
+        .config(configAuthentication);//Kiểm tra xem đã Authen chưa
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
@@ -33,15 +33,14 @@
         $urlRouterProvider.otherwise('/login');
     }
 
+    //Kiểm tra xem đã Authen chưa
     function configAuthentication($httpProvider) {
         $httpProvider.interceptors.push(function ($q, $location) {
             return {
                 request: function (config) {
-
                     return config;
                 },
                 requestError: function (rejection) {
-
                     return $q.reject(rejection);
                 },
                 response: function (response) {
@@ -52,7 +51,6 @@
                     return response;
                 },
                 responseError: function (rejection) {
-
                     if (rejection.status == "401") {
                         $location.path('/login');
                     }

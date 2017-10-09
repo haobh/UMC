@@ -1,4 +1,5 @@
-﻿(function (app) {
+﻿
+(function (app) {
     'use strict';
     app.service('authenticationService', ['$http', '$q', '$window',
         function ($http, $q, $window) {
@@ -32,6 +33,7 @@
                 }
             }
 
+            //then: dùng để rẽ nhánh, thực hiện câu lệnh trước đó rồi mới đến then
             this.validateRequest = function () {
                 var url = '/api/home/TestMethod';
                 var deferred = $q.defer();

@@ -25,7 +25,7 @@ namespace UMC.Web.App_Start
             : base(store)
         {
         }
-        
+
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<UMCDbContext>()));
@@ -39,7 +39,7 @@ namespace UMC.Web.App_Start
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 3,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
@@ -74,7 +74,7 @@ namespace UMC.Web.App_Start
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
-        //Migration vào DataBase
+
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);

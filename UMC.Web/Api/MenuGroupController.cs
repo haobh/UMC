@@ -16,7 +16,7 @@ using UMC.Web.Models;
 namespace UMC.Web.Api
 {
     [RoutePrefix("api/menugroup")]
-    //[Authorize]
+    [Authorize]
     public class MenuGroupController : ApiControllerBase
     {
         IMenuGroupService _menuGroupService;

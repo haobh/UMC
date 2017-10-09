@@ -5,7 +5,6 @@
         var userInfo;
         var deferred;
 
-
         this.login = function (userName, password) {
             deferred = $q.defer();
             var data = "grant_type=password&username=" + encodeURIComponent(userName) + "&password=" + encodeURIComponent(password);
@@ -15,7 +14,7 @@
             }).then(
             function success(response) {
                 userInfo = {
-                    accessToken: response.access_token,
+                    accessToken: response.data.access_token,
                     userName: userName
                 };
                 authenticationService.setTokenInfo(userInfo);
