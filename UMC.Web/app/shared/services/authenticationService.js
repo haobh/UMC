@@ -17,6 +17,8 @@
             this.removeToken = function () {
                 tokenInfo = null;
                 $window.sessionStorage["TokenInfo"] = null;
+
+                $window.localStorage.clear();
             }
 
             this.init = function () {
